@@ -94,14 +94,14 @@ body{
 .hero::before{
   content:'';position:absolute;top:0;left:0;right:0;bottom:0;
   background:
-    url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=80') center/cover no-repeat;
-  opacity:0.3;
+    url('https://images.unsplash.com/photo-1625134673337-519d4d10b313?w=1400&q=80') center/cover no-repeat;
+  opacity:0.45;
   filter:brightness(0.7);
 }
 .hero::after{
   content:'';position:absolute;top:0;left:0;right:0;bottom:0;
   background:
-    linear-gradient(135deg,rgba(26,37,64,0.7) 0%,rgba(15,24,41,0.85) 100%),
+    linear-gradient(135deg,rgba(26,37,64,0.5) 0%,rgba(15,24,41,0.7) 100%),
     radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),
     radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);
 }
@@ -250,6 +250,15 @@ p{margin-bottom:16px}
   z-index:10;white-space:nowrap;pointer-events:none;
   transition:opacity .3s;
 }
+.mosfet-toggle{
+  position:absolute;top:16px;right:16px;z-index:10;
+  background:var(--navy);border:2px solid var(--gold);border-radius:10px;
+  color:var(--gold-light);padding:10px 20px;font-size:.9rem;font-weight:700;
+  font-family:var(--font-body);cursor:pointer;transition:all .25s;
+  display:flex;align-items:center;gap:6px;
+}
+.mosfet-toggle:hover{background:var(--gold);color:var(--navy)}
+.mosfet-toggle.on{background:var(--gold);color:var(--navy);border-color:var(--gold-light)}
 
 /* === Chart === */
 .chart-container{
@@ -328,6 +337,16 @@ p{margin-bottom:16px}
 .photo-caption strong{color:var(--text)}
 .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
 .photo-grid .photo-block{margin:0}
+
+/* === Foundry Process Label === */
+.foundry-label{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  background:rgba(10,16,20,0.9);border:1px solid rgba(0,200,150,0.3);
+  border-radius:8px;padding:8px 20px;
+  font-size:.9rem;font-weight:700;color:#00c896;
+  z-index:10;white-space:nowrap;pointer-events:none;
+  transition:opacity .3s,color .3s;
+}
 
 /* === Responsive === */
 @media(max-width:768px){
@@ -474,7 +493,7 @@ p{margin-bottom:16px}
   </table>
 
   <div class="photo-block h-260">
-    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80" alt="シリコンウェハー" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1640955014216-75201056c829?w=800&q=80" alt="シリコンウェハー — 高純度シリコンの単結晶" loading="lazy">
     <div class="photo-caption"><strong>シリコンウェハー</strong> — 高純度シリコンの単結晶を薄くスライスした円盤。この上に数百個のチップが刻まれます。直径300mm（12インチ）が業界標準。</div>
   </div>
 
@@ -513,7 +532,7 @@ p{margin-bottom:16px}
   <p>1947年12月23日、アメリカ・ニュージャージー州にあるベル研究所で、歴史的な瞬間が訪れました。物理学者の<strong>ジョン・バーディーン</strong>と<strong>ウォルター・ブラッテン</strong>が、世界初のトランジスタ（点接触型トランジスタ）の動作実証に成功したのです。同僚の<strong>ウィリアム・ショックレー</strong>が理論的基盤を提供し、後により実用的な接合型トランジスタを開発しました。</p>
 
   <div class="photo-block h-260">
-    <img src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?w=800&q=80" alt="真空管" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1619732845302-0ecb4b54c731?w=800&q=80" alt="真空管 — トランジスタ以前の電子スイッチ" loading="lazy">
     <div class="photo-caption"><strong>真空管</strong> — トランジスタ発明前に使われていた電子スイッチ。ガラス管の中で電子を制御する。大きく、熱く、壊れやすいのが欠点でした。</div>
   </div>
 
@@ -542,6 +561,11 @@ p{margin-bottom:16px}
       <div class="vs-row"><span class="vs-label">コスト</span><span>1個あたり数兆分の1円</span></div>
       <div class="vs-row"><span class="vs-label">発熱</span><span>極めて小さい</span></div>
     </div>
+  </div>
+
+  <div class="photo-block h-260">
+    <img src="https://images.unsplash.com/photo-1616763355548-1b11cea702ee?w=800&q=80" alt="現代のトランジスタを搭載した半導体チップ" loading="lazy">
+    <div class="photo-caption"><strong>現代の半導体チップ</strong> — 1つのチップに数十億〜数千億個のトランジスタが集積されています。1947年の手作りトランジスタから、わずか80年足らずでここまで進化しました。</div>
   </div>
 
   <div class="insight-box">
@@ -652,8 +676,11 @@ p{margin-bottom:16px}
 
   <div class="three-container" id="mosfetCanvas">
     <div class="three-label" id="mosfetLabel">OFF — 電流が流れない</div>
+    <button class="mosfet-toggle" id="mosfetToggle" onclick="toggleMosfet()">
+      <span id="toggleIcon">⚡</span> ONにする
+    </button>
   </div>
-  <p style="text-align:center;font-size:.8rem;color:var(--text-sub);margin-top:8px">3Dモデル：マウスドラッグで回転 / スクロールでズーム</p>
+  <p style="text-align:center;font-size:.8rem;color:var(--text-sub);margin-top:8px">3Dモデル：ボタンをクリックしてON/OFFを切り替えてください</p>
 
   <div class="insight-box">
     <span class="insight-label">🔑 トランジスタ = 電子の蛇口</span>
@@ -791,9 +818,67 @@ p{margin-bottom:16px}
   <p>また、半導体製造には<strong>ASML（オランダ）</strong>のEUV（極端紫外線）露光装置が不可欠です。1台あたり約400億円。世界でASMLだけがこの装置を作れるため、半導体産業の最大のボトルネックの1つとなっています。</p>
 </div>
 
-<!-- Section 9 -->
+<!-- Section 9: Foundry -->
 <div class="section" id="sec-9">
   <span class="section-num">SECTION 09</span>
+  <h2>ファウンドリとは — 半導体の「製造工場」を深掘り</h2>
+
+  <p><strong>ファウンドリ（Foundry）</strong>とは、半導体の受託製造を専門に行う企業のことです。自社ブランドのチップは作らず、他社が設計した回路図を受け取って、シリコンウェハー上にそれを実際に焼き付ける — いわば「半導体の印刷工場」です。</p>
+
+  <p>世界最大のファウンドリは<strong>TSMC（台湾積体電路製造、Taiwan Semiconductor Manufacturing Company）</strong>。1987年にモリス・チャンが台湾の新竹市で創業しました。TSMCの登場は、半導体産業の構造を根本から変える革命でした。</p>
+
+  <h3>「ファブレス+ファウンドリ」モデルの革命性</h3>
+
+  <p>TSMCが登場する以前は、Intelのように設計と製造を1社で行う<strong>「IDM」（Integrated Device Manufacturer＝垂直統合型デバイスメーカー）</strong>が主流でした。半導体を作りたければ、数千億円の工場を自前で建てなければならなかったのです。</p>
+
+  <p>TSMCが「製造だけを請け負う」モデルを確立したことで、<strong>NVIDIAやAppleのような「設計に特化する」企業</strong>が生まれました。設計企業は巨額の工場投資から解放され、回路設計とソフトウェアに全リソースを集中できるようになったのです。このモデルのおかげで、半導体産業のイノベーションは劇的に加速しました。</p>
+
+  <div class="card-grid" style="grid-template-columns:repeat(2,1fr)">
+    <div class="card">
+      <span class="card-icon">🏭</span>
+      <div class="card-title">IDM（従来モデル）</div>
+      <div class="card-note">設計と製造を1社で行う。Intel、Samsung、TIなど。巨額の設備投資が必要だが、設計から製造まで一気通貫で最適化できる利点がある。</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">✏️</span>
+      <div class="card-title">ファブレス+ファウンドリ</div>
+      <div class="card-note">設計と製造を分業。NVIDIA、Apple、Qualcommが設計し、TSMCが製造。工場を持たないため身軽にイノベーションに集中できる。</div>
+    </div>
+  </div>
+
+  <h3>世界の主要ファウンドリ</h3>
+
+  <table class="compare-table">
+    <thead>
+      <tr><th>項目</th><th>TSMC</th><th>Samsung</th><th>Intel</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>本社</td><td>台湾・新竹</td><td>韓国・ソウル</td><td>米国・オレゴン</td></tr>
+      <tr><td>市場シェア</td><td>~62%</td><td>~11%</td><td>~1%</td></tr>
+      <tr><td>最先端プロセス</td><td>N2 (2nm)</td><td>SF2 (2nm)</td><td>Intel 18A</td></tr>
+      <tr><td>主要顧客</td><td>Apple, NVIDIA, AMD</td><td>Qualcomm, Google</td><td>自社 + 外部</td></tr>
+      <tr><td>設立</td><td>1987年</td><td>2017年(分社)</td><td>2021年(IFS)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box">
+    <span class="insight-label">🔑 KEY INSIGHT — TSMCの圧倒的地位</span>
+    <p>TSMCは世界のファウンドリ市場シェアの<strong>60%以上</strong>を占め、最先端チップ（7nm以下）に至っては<strong>90%以上</strong>を製造しています。Apple、NVIDIA、AMD、Qualcomm — 世界を代表するテック企業のほぼ全てがTSMCに製造を依存しています。</p>
+    <p>Samsung Foundryは第2位で、GAA（ゲート・オール・アラウンド）トランジスタ技術で先行しています。Intel Foundry Services（IFS）は2021年に外部顧客向けファウンドリ事業を立ち上げ、米国内製造能力の強化を進めています。GlobalFoundriesは最先端レースからは撤退し、成熟プロセス（12nm以上）に特化して安定的な収益を上げています。</p>
+  </div>
+
+  <h3>ファウンドリの製造工程 — 3Dアニメーション</h3>
+  <p>半導体チップの製造は、ウェハー上に何百もの薄い層を積み重ねていく精密プロセスです。主要な3つの工程をアニメーションで見てみましょう。</p>
+
+  <div class="three-container" id="foundryCanvas" style="height:350px">
+    <div class="foundry-label" id="foundryLabel">ウェハー製造プロセス</div>
+  </div>
+  <p style="text-align:center;font-size:.8rem;color:var(--text-sub);margin-top:8px">3Dアニメーション：露光 → エッチング → 成膜の3工程が繰り返されます</p>
+</div>
+
+<!-- Section 10 -->
+<div class="section" id="sec-10">
+  <span class="section-num">SECTION 10</span>
   <h2>なぜ今、世界は半導体に注目しているのか</h2>
   <p>半導体は今や「21世紀の石油」と呼ばれ、国家安全保障の問題にまで発展しています。その理由を4つの観点から見てみましょう。</p>
 
@@ -836,9 +921,9 @@ p{margin-bottom:16px}
   </div>
 </div>
 
-<!-- Section 10 -->
-<div class="section" id="sec-10">
-  <span class="section-num">SECTION 10</span>
+<!-- Section 11 -->
+<div class="section" id="sec-11">
+  <span class="section-num">SECTION 11</span>
   <h2>まとめ — 砂の結晶から始まった革命</h2>
 
   <p>半導体は「砂」から生まれ、世界を変えました。</p>
@@ -859,7 +944,7 @@ p{margin-bottom:16px}
 <!-- Footer Nav -->
 <footer class="article-footer">
   <a href="#">← 特集一覧に戻る</a>
-  <span style="font-size:.78rem;color:var(--text-sub)">Atlas Daily 特集「半導体とは」 第1話 / 全12話</span>
+  <span style="font-size:.78rem;color:var(--text-sub)">Atlas Daily 特集「半導体とは」 第1話 / 全11話</span>
   <a href="#">第2話へ →</a>
 </footer>
 
@@ -888,6 +973,20 @@ function updateToggleIcon(){
   if(!btn) return;
   var theme = document.documentElement.getAttribute('data-theme');
   btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+// === MOSFET Toggle ===
+var mosfetIsOn = false;
+function toggleMosfet(){
+  mosfetIsOn = !mosfetIsOn;
+  var btn = document.getElementById('mosfetToggle');
+  if(mosfetIsOn){
+    btn.classList.add('on');
+    btn.innerHTML = '<span>⚡</span> OFFにする';
+  } else {
+    btn.classList.remove('on');
+    btn.innerHTML = '<span>⚡</span> ONにする';
+  }
 }
 
 // === All content on load ===
@@ -1121,20 +1220,22 @@ window.addEventListener('load', function(){
     gCtx.fillStyle=grd;gCtx.fillRect(0,0,64,64);
     var glowTex = new THREE.CanvasTexture(glowC);
 
-    // Electron particles
+    // Electron particles — staggered for stream effect
     var particles = [];
     var particleGeo = new THREE.SphereGeometry(0.08, 8, 8);
-    var particleMat = new THREE.MeshPhongMaterial({ color: 0x60a5fa, emissive: 0x3b82f6, emissiveIntensity: 1.0 });
+    var particleMat2 = new THREE.MeshPhongMaterial({ color: 0x60a5fa, emissive: 0x3b82f6, emissiveIntensity: 1.0 });
 
     for(var i = 0; i < 36; i++){
-      var p = new THREE.Mesh(particleGeo, particleMat);
-      p.position.set(-1.8 + Math.random() * 0.5, 0.15 + (Math.random()-0.5)*0.15, (Math.random()-0.5)*2.4);
-      p.userData = { speed: 0.012 + Math.random()*0.025, offset: Math.random()*3.6 };
+      var p = new THREE.Mesh(particleGeo, particleMat2);
+      // Stagger start positions across the full source-to-drain range for continuous stream
+      var startX = -1.8 + (i / 36) * 3.6;
+      p.position.set(startX, 0.15 + (Math.random()-0.5)*0.15, (Math.random()-0.5)*2.4);
+      p.userData = { speed: 0.012 + Math.random()*0.025, offset: Math.random()*3.6, baseX: startX, active: false, fadeIn: 0 };
       p.visible = false;
       scene.add(p);
       // Add glow sprite
-      var spriteMat2 = new THREE.SpriteMaterial({ map: glowTex, color: 0x60a5fa, transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending, depthWrite: false });
-      var glow = new THREE.Sprite(spriteMat2);
+      var spriteMatGlow = new THREE.SpriteMaterial({ map: glowTex, color: 0x60a5fa, transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending, depthWrite: false });
+      var glow = new THREE.Sprite(spriteMatGlow);
       glow.scale.set(0.4, 0.4, 1);
       glow.visible = false;
       p.userData.glow = glow;
@@ -1143,124 +1244,340 @@ window.addEventListener('load', function(){
     }
 
     // Animation state
-    var isOn = false;
-    var cycleTime = 5000;
     var gateEmissive = new THREE.Color(0x000000);
     var gateOnEmissive = new THREE.Color(0xB8912A);
     var channelOnEmissive = new THREE.Color(0x1e40af);
-
-    // Mouse rotation
-    var isDragging = false;
-    var prevMouse = { x: 0, y: 0 };
-    var rotY = 0, rotX = 0;
-    var pivot = new THREE.Group();
-    scene.add(pivot);
-    // Move everything to pivot
-    [substrate, source, drain, channel, oxide, gate].forEach(function(m){ pivot.add(m); });
-    pivot.add(channelGlow);
-    particles.forEach(function(p){ pivot.add(p); if(p.userData.glow) pivot.add(p.userData.glow); });
-    // Re-add labels to pivot
-    scene.children.forEach(function(c){
-      if(c.isSprite) pivot.add(c);
-    });
-
-    container.addEventListener('mousedown', function(e){ isDragging = true; prevMouse = { x: e.clientX, y: e.clientY }; });
-    window.addEventListener('mouseup', function(){ isDragging = false; });
-    container.addEventListener('mousemove', function(e){
-      if(!isDragging) return;
-      var dx = e.clientX - prevMouse.x;
-      var dy = e.clientY - prevMouse.y;
-      rotY += dx * 0.005;
-      rotX += dy * 0.005;
-      rotX = Math.max(-0.5, Math.min(0.5, rotX));
-      prevMouse = { x: e.clientX, y: e.clientY };
-    });
-    container.addEventListener('wheel', function(e){
-      e.preventDefault();
-      camera.position.z += e.deltaY * 0.01;
-      camera.position.z = Math.max(4, Math.min(14, camera.position.z));
-    }, { passive: false });
-
-    // Touch controls
-    var touchStart = {};
-    container.addEventListener('touchstart', function(e){
-      if(e.touches.length === 1){
-        isDragging = true;
-        touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-        prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-      }
-    }, { passive: true });
-    container.addEventListener('touchmove', function(e){
-      if(!isDragging || e.touches.length !== 1) return;
-      var dx = e.touches[0].clientX - prevMouse.x;
-      var dy = e.touches[0].clientY - prevMouse.y;
-      rotY += dx * 0.005;
-      rotX += dy * 0.005;
-      rotX = Math.max(-0.5, Math.min(0.5, rotX));
-      prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    }, { passive: true });
-    container.addEventListener('touchend', function(){ isDragging = false; }, { passive: true });
+    var transitionProgress = 0; // 0 = fully OFF, 1 = fully ON
+    var channelPulseTime = 0;
+    var justTurnedOn = false;
 
     function animate(){
       requestAnimationFrame(animate);
 
-      var t = Date.now() % (cycleTime * 2);
-      isOn = t > cycleTime;
+      var isOn = mosfetIsOn;
 
-      // Gate glow
-      if(isOn){
-        gateMat.emissive.lerp(gateOnEmissive, 0.08);
-        gateMat.emissiveIntensity = 0.5;
-        channelMat.emissive.lerp(channelOnEmissive, 0.08);
-        channelMat.emissiveIntensity = 0.6;
-      } else {
-        gateMat.emissive.lerp(gateEmissive, 0.08);
-        gateMat.emissiveIntensity = 0;
-        channelMat.emissive.lerp(gateEmissive, 0.08);
-        channelMat.emissiveIntensity = 0;
+      // Smooth transition
+      if(isOn && transitionProgress < 1){
+        transitionProgress = Math.min(1, transitionProgress + 0.02);
+        if(transitionProgress > 0.01 && !justTurnedOn){
+          justTurnedOn = true;
+          channelPulseTime = Date.now();
+        }
+      } else if(!isOn && transitionProgress > 0){
+        transitionProgress = Math.max(0, transitionProgress - 0.015);
+        justTurnedOn = false;
       }
 
-      // Channel glow light
-      if(isOn){
-        channelGlow.intensity += (3.0 - channelGlow.intensity) * 0.08;
-      } else {
-        channelGlow.intensity += (0 - channelGlow.intensity) * 0.08;
+      // Channel pulse effect when first turning ON
+      var pulseIntensity = 0;
+      if(justTurnedOn && transitionProgress > 0){
+        var elapsed = (Date.now() - channelPulseTime) / 1000;
+        if(elapsed < 0.6){
+          pulseIntensity = Math.sin(elapsed / 0.6 * Math.PI) * 0.8;
+        }
       }
 
-      // Particles
+      // Gate glow — smooth transition
+      var targetGateEmissive = isOn ? gateOnEmissive : gateEmissive;
+      gateMat.emissive.lerp(targetGateEmissive, 0.06);
+      gateMat.emissiveIntensity = transitionProgress * 0.5;
+
+      // Channel emissive — smooth transition + pulse
+      var targetChannelEmissive = isOn ? channelOnEmissive : gateEmissive;
+      channelMat.emissive.lerp(targetChannelEmissive, 0.06);
+      channelMat.emissiveIntensity = transitionProgress * 0.6 + pulseIntensity;
+
+      // Channel glow light — intensifies with transition
+      var targetGlowIntensity = transitionProgress * 3.0 + pulseIntensity * 2.0;
+      channelGlow.intensity += (targetGlowIntensity - channelGlow.intensity) * 0.08;
+
+      // Particles — stream effect with staggered activation
+      var particlesActive = transitionProgress > 0.3;
       for(var i = 0; i < particles.length; i++){
         var p = particles[i];
         var gl = p.userData.glow;
-        if(isOn){
-          p.visible = true;
-          if(gl) { gl.visible = true; gl.position.copy(p.position); }
-          p.position.x += p.userData.speed;
-          // Slight wave motion in Y
-          p.position.y = 0.15 + Math.sin(Date.now()*0.003 + p.userData.offset) * 0.05;
-          if(p.position.x > 1.8){
-            p.position.x = -1.8;
-            p.position.z = (Math.random()-0.5)*2.4;
+
+        if(particlesActive){
+          // Stagger activation based on particle index
+          var activationThreshold = 0.3 + (i / particles.length) * 0.4;
+          if(transitionProgress >= activationThreshold || p.userData.active){
+            p.userData.active = true;
+            p.userData.fadeIn = Math.min(1, p.userData.fadeIn + 0.05);
+          }
+
+          if(p.userData.active && p.userData.fadeIn > 0){
+            p.visible = true;
+            if(gl) {
+              gl.visible = true;
+              gl.position.copy(p.position);
+              gl.material.opacity = 0.7 * p.userData.fadeIn * transitionProgress;
+            }
+            p.position.x += p.userData.speed * transitionProgress;
+            // Slight wave motion in Y
+            p.position.y = 0.15 + Math.sin(Date.now()*0.003 + p.userData.offset) * 0.05;
+            if(p.position.x > 1.8){
+              p.position.x = -1.8;
+              p.position.z = (Math.random()-0.5)*2.4;
+            }
           }
         } else {
-          p.visible = false;
-          if(gl) gl.visible = false;
-          p.position.x = -1.8 + Math.random() * 0.5;
+          // Turning off — slow down and fade
+          if(p.userData.active){
+            p.userData.fadeIn = Math.max(0, p.userData.fadeIn - 0.03);
+            if(p.userData.fadeIn <= 0){
+              p.userData.active = false;
+              p.visible = false;
+              if(gl) gl.visible = false;
+              p.position.x = p.userData.baseX;
+            } else {
+              p.position.x += p.userData.speed * p.userData.fadeIn * 0.5;
+              if(gl) {
+                gl.position.copy(p.position);
+                gl.material.opacity = 0.7 * p.userData.fadeIn;
+              }
+              if(p.position.x > 1.8){
+                p.position.x = -1.8;
+                p.position.z = (Math.random()-0.5)*2.4;
+              }
+            }
+          } else {
+            p.visible = false;
+            if(gl) gl.visible = false;
+          }
         }
       }
 
       // Label update
       if(label){
-        label.textContent = isOn ? 'ON — 電流が流れる!' : 'OFF — 電流が流れない';
-        label.style.borderColor = isOn ? 'rgba(184,145,42,0.6)' : 'rgba(184,145,42,0.15)';
+        if(transitionProgress > 0.5){
+          label.textContent = 'ON — 電流が流れる!';
+          label.style.borderColor = 'rgba(184,145,42,0.6)';
+        } else {
+          label.textContent = 'OFF — 電流が流れない';
+          label.style.borderColor = 'rgba(184,145,42,0.15)';
+        }
       }
 
-      // Rotation
-      pivot.rotation.y += (rotY - pivot.rotation.y) * 0.1;
-      pivot.rotation.x += (rotX - pivot.rotation.x) * 0.1;
+      renderer.render(scene, camera);
+    }
+    animate();
 
-      // Gentle auto-rotate when not dragging
-      if(!isDragging){
-        rotY += 0.002;
+    // Resize
+    window.addEventListener('resize', function(){
+      var nw = container.clientWidth;
+      var nh = container.clientHeight;
+      camera.aspect = nw/nh;
+      camera.updateProjectionMatrix();
+      renderer.setSize(nw, nh);
+    });
+  })();
+
+  // === Three.js — Foundry Manufacturing Process ===
+  (function(){
+    if(typeof THREE === 'undefined') return;
+
+    var container = document.getElementById('foundryCanvas');
+    var label = document.getElementById('foundryLabel');
+    if(!container) return;
+
+    var w = container.clientWidth;
+    var h = container.clientHeight;
+
+    var scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a1014);
+
+    var camera = new THREE.PerspectiveCamera(45, w/h, 0.1, 100);
+    camera.position.set(4, 5, 6);
+    camera.lookAt(0, 0.5, 0);
+
+    var renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(w, h);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // Lights
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    var mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    mainLight.position.set(3, 8, 4);
+    scene.add(mainLight);
+    var fillLight = new THREE.DirectionalLight(0x8888ff, 0.3);
+    fillLight.position.set(-3, 4, -2);
+    scene.add(fillLight);
+
+    // Wafer (grey disc)
+    var waferGeo = new THREE.CylinderGeometry(2, 2, 0.1, 64);
+    var waferMat = new THREE.MeshPhongMaterial({ color: 0x888899, shininess: 80, specular: 0x444444 });
+    var wafer = new THREE.Mesh(waferGeo, waferMat);
+    wafer.position.set(0, 0, 0);
+    scene.add(wafer);
+
+    // Layer stack (grows as cycles repeat)
+    var layers = [];
+    var layerColors = [0x446644, 0x556688, 0x887744, 0x558855, 0x667799, 0x998855];
+    var currentLayerY = 0.05;
+
+    function addLayer(colorIndex){
+      if(layers.length >= 8) return; // max 8 layers
+      var layerGeo = new THREE.CylinderGeometry(1.95, 1.95, 0.04, 64);
+      var layerMat = new THREE.MeshPhongMaterial({
+        color: layerColors[colorIndex % layerColors.length],
+        transparent: true, opacity: 0.85, shininess: 60
+      });
+      var layer = new THREE.Mesh(layerGeo, layerMat);
+      layer.position.set(0, currentLayerY + 0.02, 0);
+      layer.scale.y = 0.01;
+      layer.userData.targetScaleY = 1;
+      scene.add(layer);
+      layers.push(layer);
+      currentLayerY += 0.04;
+    }
+
+    // UV Light source (lens above wafer)
+    var lensGeo = new THREE.CylinderGeometry(0.3, 0.6, 0.4, 32);
+    var lensMat = new THREE.MeshPhongMaterial({ color: 0x334455, shininess: 60 });
+    var lens = new THREE.Mesh(lensGeo, lensMat);
+    lens.position.set(0, 5, 0);
+    scene.add(lens);
+
+    // UV Beam (cone)
+    var beamGeo = new THREE.ConeGeometry(1.8, 4, 32, 1, true);
+    var beamMat = new THREE.MeshBasicMaterial({ color: 0x8844ff, transparent: true, opacity: 0, side: THREE.DoubleSide });
+    var beam = new THREE.Mesh(beamGeo, beamMat);
+    beam.position.set(0, 3, 0);
+    beam.rotation.x = Math.PI;
+    scene.add(beam);
+
+    // UV Point light
+    var uvLight = new THREE.PointLight(0x8844ff, 0, 10);
+    uvLight.position.set(0, 2, 0);
+    scene.add(uvLight);
+
+    // Wafer glow for exposure
+    var waferGlowMat = new THREE.MeshBasicMaterial({ color: 0xaa66ff, transparent: true, opacity: 0 });
+    var waferGlow = new THREE.Mesh(new THREE.CylinderGeometry(2.05, 2.05, 0.12, 64), waferGlowMat);
+    waferGlow.position.set(0, 0, 0);
+    scene.add(waferGlow);
+
+    // Particle systems for etching and deposition
+    var etchParticles = [];
+    var depoParticles = [];
+    var particleGeo2 = new THREE.SphereGeometry(0.05, 6, 6);
+
+    // Etching particles (red/orange)
+    for(var i = 0; i < 60; i++){
+      var ep = new THREE.Mesh(particleGeo2, new THREE.MeshBasicMaterial({ color: 0xff6633 }));
+      ep.position.set((Math.random()-0.5)*3.5, 4 + Math.random()*2, (Math.random()-0.5)*3.5);
+      ep.userData = { speed: 0.03 + Math.random()*0.04, startY: 4 + Math.random()*2, angle: Math.random()*Math.PI*2 };
+      ep.visible = false;
+      scene.add(ep);
+      etchParticles.push(ep);
+    }
+
+    // Deposition particles (blue)
+    for(var i = 0; i < 60; i++){
+      var dp = new THREE.Mesh(particleGeo2, new THREE.MeshBasicMaterial({ color: 0x4488ff }));
+      dp.position.set((Math.random()-0.5)*3.5, 3 + Math.random()*2, (Math.random()-0.5)*3.5);
+      dp.userData = { speed: 0.015 + Math.random()*0.02, startY: 3 + Math.random()*2, angle: Math.random()*Math.PI*2 };
+      dp.visible = false;
+      scene.add(dp);
+      depoParticles.push(dp);
+    }
+
+    // Animation state
+    var cycleDuration = 6000; // 6 seconds total (2s per step)
+    var stepDuration = 2000;
+    var cycleCount = 0;
+    var startTime = Date.now();
+
+    var stepLabels = [
+      'STEP 1: 露光（リソグラフィ）',
+      'STEP 2: エッチング',
+      'STEP 3: 成膜（デポジション）'
+    ];
+
+    function animate(){
+      requestAnimationFrame(animate);
+
+      var elapsed = Date.now() - startTime;
+      var cycleElapsed = elapsed % cycleDuration;
+      var currentStep = Math.floor(cycleElapsed / stepDuration); // 0, 1, or 2
+      var stepProgress = (cycleElapsed % stepDuration) / stepDuration; // 0 to 1
+
+      var newCycleCount = Math.floor(elapsed / cycleDuration);
+      if(newCycleCount > cycleCount){
+        cycleCount = newCycleCount;
+        addLayer(cycleCount - 1);
+      }
+
+      // Update label
+      if(label){
+        label.textContent = stepLabels[currentStep];
+        if(currentStep === 0) label.style.color = '#aa66ff';
+        else if(currentStep === 1) label.style.color = '#ff6633';
+        else label.style.color = '#4488ff';
+      }
+
+      // Step 0: Exposure (UV beam)
+      if(currentStep === 0){
+        var beamOpacity = stepProgress < 0.2 ? stepProgress / 0.2 * 0.35 : (stepProgress > 0.8 ? (1 - stepProgress) / 0.2 * 0.35 : 0.35);
+        beamMat.opacity = beamOpacity;
+        uvLight.intensity = beamOpacity * 8;
+        waferGlowMat.opacity = beamOpacity * 0.6;
+        lens.position.y = 5 - stepProgress * 1.5;
+        beam.position.y = lens.position.y - 2;
+      } else {
+        beamMat.opacity = 0;
+        uvLight.intensity = 0;
+        waferGlowMat.opacity = 0;
+        lens.position.y = 5;
+        beam.position.y = 3;
+      }
+
+      // Step 1: Etching (red particles fall)
+      for(var i = 0; i < etchParticles.length; i++){
+        var ep = etchParticles[i];
+        if(currentStep === 1){
+          ep.visible = true;
+          var particleProgress = (stepProgress + ep.userData.speed * i * 0.5) % 1;
+          ep.position.y = ep.userData.startY - particleProgress * (ep.userData.startY + 0.5);
+          var radius = 1.8 * Math.random();
+          if(ep.position.y < 0.1){
+            ep.position.y = ep.userData.startY;
+          }
+        } else {
+          ep.visible = false;
+          ep.position.y = ep.userData.startY;
+        }
+      }
+
+      // Step 2: Deposition (blue particles settle gently)
+      for(var i = 0; i < depoParticles.length; i++){
+        var dp = depoParticles[i];
+        if(currentStep === 2){
+          dp.visible = true;
+          var particleProgress = (stepProgress + dp.userData.speed * i * 0.3) % 1;
+          dp.position.y = dp.userData.startY - particleProgress * (dp.userData.startY - 0.15);
+          if(dp.position.y < 0.15 + currentLayerY){
+            dp.position.y = dp.userData.startY;
+          }
+        } else {
+          dp.visible = false;
+          dp.position.y = dp.userData.startY;
+        }
+      }
+
+      // Animate layer growth
+      for(var i = 0; i < layers.length; i++){
+        var layer = layers[i];
+        if(layer.scale.y < layer.userData.targetScaleY){
+          layer.scale.y += (layer.userData.targetScaleY - layer.scale.y) * 0.05;
+        }
+      }
+
+      // Slow wafer rotation
+      wafer.rotation.y += 0.002;
+      for(var i = 0; i < layers.length; i++){
+        layers[i].rotation.y = wafer.rotation.y;
       }
 
       renderer.render(scene, camera);
@@ -1279,6 +1596,5 @@ window.addEventListener('load', function(){
 
 });
 </script>
-
 </body>
 </html>
