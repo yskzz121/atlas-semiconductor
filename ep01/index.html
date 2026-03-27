@@ -94,6 +94,14 @@ body{
 .hero::before{
   content:'';position:absolute;top:0;left:0;right:0;bottom:0;
   background:
+    url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=80') center/cover no-repeat;
+  opacity:0.3;
+  filter:brightness(0.7);
+}
+.hero::after{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:
+    linear-gradient(135deg,rgba(26,37,64,0.7) 0%,rgba(15,24,41,0.85) 100%),
     radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),
     radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);
 }
@@ -301,6 +309,26 @@ p{margin-bottom:16px}
 .article-footer a{color:var(--gold-light);text-decoration:none}
 .article-footer a:hover{text-decoration:underline}
 
+/* === Photo === */
+.photo-block{
+  margin:28px 0;border-radius:12px;overflow:hidden;
+  border:1px solid var(--border-subtle);position:relative;
+}
+.photo-block img{
+  width:100%;height:auto;display:block;
+  object-fit:cover;
+}
+.photo-block.h-260 img{height:260px}
+.photo-block.h-300 img{height:300px}
+.photo-caption{
+  padding:12px 16px;background:var(--bg-card);
+  font-size:.78rem;color:var(--text-sub);line-height:1.6;
+  border-top:1px solid var(--border-subtle);
+}
+.photo-caption strong{color:var(--text)}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.photo-grid .photo-block{margin:0}
+
 /* === Responsive === */
 @media(max-width:768px){
   .hero{padding:60px 16px 40px}
@@ -321,6 +349,7 @@ p{margin-bottom:16px}
   .three-container{height:320px}
   .article-footer{flex-direction:column;gap:12px;text-align:center}
   .nav{padding:0 12px}
+  .photo-grid{grid-template-columns:1fr}
 }
 @media(max-width:480px){
   .card-grid{grid-template-columns:1fr}
@@ -444,6 +473,11 @@ p{margin-bottom:16px}
     </tbody>
   </table>
 
+  <div class="photo-block h-260">
+    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80" alt="シリコンウェハー" loading="lazy">
+    <div class="photo-caption"><strong>シリコンウェハー</strong> — 高純度シリコンの単結晶を薄くスライスした円盤。この上に数百個のチップが刻まれます。直径300mm（12インチ）が業界標準。</div>
+  </div>
+
   <h3>なぜシリコンなのか？</h3>
   <p>半導体の材料は色々ありますが、圧倒的に使われているのが<strong>シリコン（Si）</strong>です。その理由は4つあります。</p>
 
@@ -477,6 +511,11 @@ p{margin-bottom:16px}
   <h2>トランジスタの誕生 — 1947年、世界が変わった日</h2>
 
   <p>1947年12月23日、アメリカ・ニュージャージー州にあるベル研究所で、歴史的な瞬間が訪れました。物理学者の<strong>ジョン・バーディーン</strong>と<strong>ウォルター・ブラッテン</strong>が、世界初のトランジスタ（点接触型トランジスタ）の動作実証に成功したのです。同僚の<strong>ウィリアム・ショックレー</strong>が理論的基盤を提供し、後により実用的な接合型トランジスタを開発しました。</p>
+
+  <div class="photo-block h-260">
+    <img src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?w=800&q=80" alt="真空管" loading="lazy">
+    <div class="photo-caption"><strong>真空管</strong> — トランジスタ発明前に使われていた電子スイッチ。ガラス管の中で電子を制御する。大きく、熱く、壊れやすいのが欠点でした。</div>
+  </div>
 
   <p>それまで電子回路のスイッチとして使われていたのは<strong>「真空管」</strong>でした。真空管は電球のように大きく、大量の電力を消費し、熱を出し、すぐに切れてしまう。1946年に完成した世界初の汎用コンピュータENIACは、17,468本の真空管を使い、重さ30トン、消費電力150kW（一般家庭50軒分）という怪物でした。</p>
 
@@ -744,6 +783,11 @@ p{margin-bottom:16px}
     <p>一方、TSMCのような製造専門企業は「ファウンドリ」と呼ばれます。Apple、Qualcomm、AMDなども全てTSMCに製造を委託しており、TSMCは世界の最先端チップの90%以上を製造しています。</p>
   </div>
 
+  <div class="photo-block h-260">
+    <img src="https://images.unsplash.com/photo-1620283085439-39620a119b21?w=800&q=80" alt="半導体製造クリーンルーム" loading="lazy">
+    <div class="photo-caption"><strong>半導体製造のクリーンルーム</strong> — 空気中のチリは半導体にとって致命的。製造は空気1立方メートルあたり微粒子10個以下の「クラス1」クリーンルームで行われます。作業者は全身防塵服（バニースーツ）を着用。</div>
+  </div>
+
   <p>また、半導体製造には<strong>ASML（オランダ）</strong>のEUV（極端紫外線）露光装置が不可欠です。1台あたり約400億円。世界でASMLだけがこの装置を作れるため、半導体産業の最大のボトルネックの1つとなっています。</p>
 </div>
 
@@ -778,6 +822,11 @@ p{margin-bottom:16px}
       <div class="card-value">GPU不足</div>
       <div class="card-note">ChatGPTの登場でAI向けGPU需要が爆発。NVIDIAのデータセンター売上は1年で3倍以上に成長し、時価総額は世界一に。AI開発競争が半導体需要をさらに押し上げています。</div>
     </div>
+  </div>
+
+  <div class="photo-block h-260">
+    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80" alt="AIデータセンター" loading="lazy">
+    <div class="photo-caption"><strong>AIデータセンター</strong> — ChatGPTなどの大規模AIモデルは、数千〜数万基のGPUを搭載したサーバーで稼働しています。AI需要の爆発がGPU（半導体）の世界的な争奪戦を引き起こしました。</div>
   </div>
 
   <div class="insight-box">
@@ -980,16 +1029,25 @@ window.addEventListener('load', function(){
     container.appendChild(renderer.domElement);
 
     // Lights
-    var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    var ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
     scene.add(ambientLight);
 
-    var dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    var dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
     dirLight.position.set(5, 8, 5);
     scene.add(dirLight);
 
-    var pointLight = new THREE.PointLight(0xB8912A, 0.6, 20);
+    var dirLight2 = new THREE.DirectionalLight(0x6688cc, 0.5);
+    dirLight2.position.set(-4, 4, -3);
+    scene.add(dirLight2);
+
+    var pointLight = new THREE.PointLight(0xB8912A, 0.8, 20);
     pointLight.position.set(-3, 5, 3);
     scene.add(pointLight);
+
+    // ON-state glow light (starts off, turns on with gate)
+    var channelGlow = new THREE.PointLight(0x3b82f6, 0, 8);
+    channelGlow.position.set(0, 0.3, 0);
+    scene.add(channelGlow);
 
     // Materials
     var substrateMat = new THREE.MeshPhongMaterial({ color: 0x3a4a6b, shininess: 30 });
@@ -1051,17 +1109,36 @@ window.addEventListener('load', function(){
     makeLabel('Gate', new THREE.Vector3(0, 1.6, 0), '#D4A843');
     makeLabel('Drain', new THREE.Vector3(1.8, 1.5, 0), '#60a5fa');
 
+    // Glow texture for particles
+    var glowC = document.createElement('canvas');
+    glowC.width = glowC.height = 64;
+    var gCtx = glowC.getContext('2d');
+    var grd = gCtx.createRadialGradient(32,32,0,32,32,32);
+    grd.addColorStop(0,'rgba(255,255,255,1)');
+    grd.addColorStop(0.3,'rgba(255,255,255,0.5)');
+    grd.addColorStop(0.7,'rgba(255,255,255,0.1)');
+    grd.addColorStop(1,'rgba(255,255,255,0)');
+    gCtx.fillStyle=grd;gCtx.fillRect(0,0,64,64);
+    var glowTex = new THREE.CanvasTexture(glowC);
+
     // Electron particles
     var particles = [];
-    var particleGeo = new THREE.SphereGeometry(0.06, 8, 8);
-    var particleMat = new THREE.MeshPhongMaterial({ color: 0x60a5fa, emissive: 0x3b82f6, emissiveIntensity: 0.8 });
+    var particleGeo = new THREE.SphereGeometry(0.08, 8, 8);
+    var particleMat = new THREE.MeshPhongMaterial({ color: 0x60a5fa, emissive: 0x3b82f6, emissiveIntensity: 1.0 });
 
-    for(var i = 0; i < 24; i++){
+    for(var i = 0; i < 36; i++){
       var p = new THREE.Mesh(particleGeo, particleMat);
       p.position.set(-1.8 + Math.random() * 0.5, 0.15 + (Math.random()-0.5)*0.15, (Math.random()-0.5)*2.4);
-      p.userData = { speed: 0.01 + Math.random()*0.02, offset: Math.random()*3.6 };
+      p.userData = { speed: 0.012 + Math.random()*0.025, offset: Math.random()*3.6 };
       p.visible = false;
       scene.add(p);
+      // Add glow sprite
+      var spriteMat2 = new THREE.SpriteMaterial({ map: glowTex, color: 0x60a5fa, transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending, depthWrite: false });
+      var glow = new THREE.Sprite(spriteMat2);
+      glow.scale.set(0.4, 0.4, 1);
+      glow.visible = false;
+      p.userData.glow = glow;
+      scene.add(glow);
       particles.push(p);
     }
 
@@ -1080,7 +1157,8 @@ window.addEventListener('load', function(){
     scene.add(pivot);
     // Move everything to pivot
     [substrate, source, drain, channel, oxide, gate].forEach(function(m){ pivot.add(m); });
-    particles.forEach(function(p){ pivot.add(p); });
+    pivot.add(channelGlow);
+    particles.forEach(function(p){ pivot.add(p); if(p.userData.glow) pivot.add(p.userData.glow); });
     // Re-add labels to pivot
     scene.children.forEach(function(c){
       if(c.isSprite) pivot.add(c);
@@ -1142,18 +1220,30 @@ window.addEventListener('load', function(){
         channelMat.emissiveIntensity = 0;
       }
 
+      // Channel glow light
+      if(isOn){
+        channelGlow.intensity += (3.0 - channelGlow.intensity) * 0.08;
+      } else {
+        channelGlow.intensity += (0 - channelGlow.intensity) * 0.08;
+      }
+
       // Particles
       for(var i = 0; i < particles.length; i++){
         var p = particles[i];
+        var gl = p.userData.glow;
         if(isOn){
           p.visible = true;
+          if(gl) { gl.visible = true; gl.position.copy(p.position); }
           p.position.x += p.userData.speed;
+          // Slight wave motion in Y
+          p.position.y = 0.15 + Math.sin(Date.now()*0.003 + p.userData.offset) * 0.05;
           if(p.position.x > 1.8){
             p.position.x = -1.8;
             p.position.z = (Math.random()-0.5)*2.4;
           }
         } else {
           p.visible = false;
+          if(gl) gl.visible = false;
           p.position.x = -1.8 + Math.random() * 0.5;
         }
       }
